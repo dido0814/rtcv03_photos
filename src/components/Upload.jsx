@@ -15,11 +15,12 @@ const Upload = ({
     const handleOnClickUpload = () => {
         inputFileRef.current.click();
     };
-
+    //點擊檔案視窗完成後，觸發事件
     const handleOnChange = (event) => {
         if (typeof onChange === 'function') {
             onChange(event?.target?.files);
         }
+        //console.log('files: ', event.target.files);
     };
 
     return (

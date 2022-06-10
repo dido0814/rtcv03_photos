@@ -1,47 +1,60 @@
-import React from 'react';
-// import { Button, Form, Card, Container } from 'react-bootstrap';
-// import { BsCloudUpload } from "react-icons/bs";
+import React, { useState, useCallback } from 'react';
+
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import BackupIcon from '@material-ui/icons/Backup';
 
+import "../page/Main.css";
+
 import Upload from '../components/Upload';
+import FilesInfoShow from '../components/FilesInfoShow';
 
 function Main() {
+
+    const [filesData, setFilesData] = useState([]);
+    const [resetKey, setResetKey] = useState(0);
+
+    const handleOnChange = (files) => {
+        console.log('自訂事件:');
+        console.log(files);
+        console.log(Object.values(files));
+        setFilesData(Object.values(files));
+    }
+
+    const resetFile = () => {
+        setFilesData([]);
+        setResetKey(0);
+    }
+
     return (
         <>
             <CssBaseline />
             <Container fixed>
-                <Typography component="div" style={{ backgroundColor: '#cfe8fc', height: '100vh' }} >
-                    <Upload accept="image/*" multiple onChange={function noRefCheck() { }} >
+                <div className="app">
+                    <Upload resetKey={resetKey} accept="image/*" multiple onChange={handleOnChange} >
                         <Button
-                            variant="contained"
+                            variant="outlined"
                             color="primary"
                             startIcon={<BackupIcon />}
                         >
                             上傳照片
                         </Button>
                     </Upload>
-                </Typography>
+                    <Button
+                        onClick={resetFile}
+                        startIcon={<BackupIcon />}
+                        color="primary"
+                        variant="outlined"
+                    >
+                        重設
+                    </Button>
+                    <FilesInfoShow data={filesData} />
+                </div>
             </Container>
 
         </>
     );
 }
-
-const handleOnPreview = (files) => {
-    const file = files[0];
-    const reader = new FileReader();
-    reader.addEventListener('load', () => {
-      // convert image file to base64 string
-      setImageSrc(reader.result);
-    }, false);
-  
-    if (file) {
-      reader.readAsDataURL(file);
-    }
-  };
 
 export default Main;
