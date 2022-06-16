@@ -19,6 +19,7 @@ const Upload = ({
     const handleOnChange = (event) => {
         if (typeof onChange === 'function') {
             onChange(event?.target?.files);
+            // onChange(event);
         }
         //console.log('files: ', event.target.files);
     };
