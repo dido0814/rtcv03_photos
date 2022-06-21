@@ -1,13 +1,25 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import BackupIcon from '@material-ui/icons/Backup';
+import { TextField, Grid } from '@material-ui/core';
+
+// import {
+//     MuiPickersUtilsProvider,
+//     KeyboardTimePicker,
+//     KeyboardDatePicker
+// } from '@material-ui/pickers';
 
 import "../page/Main.css";
 import PhotoList from '../components/PhotoList';
 import Upload from '../userComponents/Upload';
+import ExportAsImage from './ExportAsImage';
+
+import PrintPDF from './PrintPDF';
+// import { margin } from '@mui/system';
+// import { Prev } from 'react-bootstrap/esm/PageItem';
 
 //import filesData from '../file-data.json';
 
@@ -15,6 +27,15 @@ function Main() {
 
     const [filesDatas, setFilesDatas] = useState([]);
     const [resetKey, setResetKey] = useState(0);
+    const printStatus = useRef(false);
+    const [checkListInfo, setCheckListInfo] = useState({
+        name: "大潭電廠7、8、9號機抽水機房暨進出水暗渠等新建工程",
+        date: "2022-06-01",
+        RtName: "OOO",
+        BesName: "OOO"
+    });
+
+    const exportRef = useRef();
 
     const addInfo = (id, info) => {
         console.log(id);
@@ -29,7 +50,6 @@ function Main() {
             }
         } : file)
         setFilesDatas(newDatas);
-
     }
 
     const deleteItem = (id) => {
@@ -80,15 +100,25 @@ function Main() {
     const resetFile = () => {
         setFilesDatas([]);
         setResetKey(0);
+        printStatus.current = false;
+    }
+
+    const onPrint = () => {
+        printStatus.current = true;
+        ExportAsImage(exportRef.current, 'test');
     }
 
     return (
         <>
             <CssBaseline />
             <Container fixed>
-                <div className="app">
+                <div style={{ margin: '20px' }}>
+                    <h1 style={{ textAlign: 'center' }}>監造抽查照片整理系統</h1>
+                </div>
+                <Grid container justifyContent="space-between">
                     <Upload resetKey={resetKey} accept="image/*" multiple onChange={handleOnChange} >
                         <Button
+                            style={{ marginLeft: '10px' }}
                             variant="outlined"
                             color="primary"
                             startIcon={<BackupIcon />}
@@ -104,10 +134,66 @@ function Main() {
                     >
                         重設
                     </Button>
-                    <PhotoList datas={filesDatas} addInfo={addInfo} deleteItem={deleteItem} />
+                    <Button
+                        onClick={onPrint}
+                        color="primary"
+                        variant="outlined"
+                    >
+                        輸出報告
+                    </Button>
+                    <TextField
+                        type="date"
+                        defaultValue="2022-06-01"
+                        label="抽查日期："
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        value={checkListInfo.date}
+                        onChange={event => setCheckListInfo((Prev) => (
+                            {
+                                ...Prev,
+                                date: event.target.value
+                            }
+                        ))}
+                    />
+                    <TextField
+                        type="text"
+                        label="睿泰抽查人員："
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        value={checkListInfo.RtName}
+                        onChange={event => setCheckListInfo((Prev) => (
+                            {
+                                ...Prev,
+                                RtName: event.target.value
+                            }
+                        ))}
+                    />
+                    <TextField
+                        type="text"
+                        label="中華陪同人員："
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        value={checkListInfo.BesName}
+                        onChange={event => setCheckListInfo((Prev) => (
+                            {
+                                ...Prev,
+                                BesName: event.target.value
+                            }
+                        ))}
+                    />
+                </Grid>
+            </Container>
+            <Container fixed>
+                <div ref={exportRef} id="demo" className="app">
+                    <h2 style={{ textAlign: 'center', marginTop: '30px' }}>{checkListInfo.name}</h2>
+                    <h2 style={{ textAlign: 'center' }}>施工抽查照片({checkListInfo.date})</h2>
+                    <h5 style={{ textAlign: 'right' }}>睿泰:{checkListInfo.RtName}、BES:{checkListInfo.BesName}</h5>
+                    <PhotoList datas={filesDatas} addInfo={addInfo} deleteItem={deleteItem} printStatus={printStatus} />
                 </div>
             </Container>
-
         </>
     );
 }
