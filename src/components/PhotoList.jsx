@@ -1,21 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { Grid } from '@material-ui/core';
+
 import Item from './Item';
 
-const PhotoList = ({ datas, deleteItem = f => f, addInfo = f => f }) => {
+const PhotoList = ({ datas, printStatus, deleteItem = f => f, addInfo = f => f }) => {
 
     if (datas.length === 0) return (<p>尚未載入照片</p>);
 
     return (
         <>
-            {
-                datas.map((item, i) => {
-                    return (
-                        <Item key={i} data={item} deleteItem={deleteItem} addInfo={addInfo} />
-                    );
-                })
-            }
+            {/* justifyContent="center" */}
+            <Grid container>
+                {
+                    datas.map((item, i) => {
+                        return (
+                            <Grid item key={i} xs={6} spacing={1}>
+                                <Item key={i} data={item} deleteItem={deleteItem} addInfo={addInfo} printStatus={printStatus} />
+                            </Grid>
+                        );
+                    })
+                }
+            </Grid>
         </>
     );
 

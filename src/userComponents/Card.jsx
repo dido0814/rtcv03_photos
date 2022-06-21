@@ -32,7 +32,7 @@ const StyledCard = styled.div`
 
 const Cover = styled.div`
   overflow: hidden;
-  width: 400px;
+  width: 350px;
   img {
     width: 95%;
     display: block;
