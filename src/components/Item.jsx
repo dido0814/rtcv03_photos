@@ -57,7 +57,7 @@ const Item = ({ data, printStatus, deleteItem = f => f, addInfo = f => f }) => {
                                 name="checkedA"
                                 color="primary"
                             />
-                            {check ? <label>輸入完成</label> : <label>未輸入</label>}
+                            {check ? <label>鎖定</label> : <label>未輸入</label>}
                             <IconButton
                                 onClick={() => deleteItem(data.info.id)}
                                 variant="outlined"

@@ -11,8 +11,8 @@ const StyledMeta = styled.div`
 `;
 
 const Avatar = styled.div`
-  width: 40px;
-  height: 40px;
+  width: 1px;
+  height: 1px;
   & > img {
     width: 100%;
   }

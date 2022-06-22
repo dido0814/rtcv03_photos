@@ -32,9 +32,9 @@ const StyledCard = styled.div`
 
 const Cover = styled.div`
   overflow: hidden;
-  width: 350px;
+  width: 450px;
   img {
-    width: 95%;
+    width: 100%;
     display: block;
   }
 `;

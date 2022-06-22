@@ -1,31 +1,41 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-import { CssBaseline, Container, Grid } from '@material-ui/core';
-import { Button, TextField, Switch, FormControlLabel } from '@material-ui/core';
-
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Container from '@material-ui/core/Container';
+import Button from '@material-ui/core/Button';
 import BackupIcon from '@material-ui/icons/Backup';
-import RefreshIcon from '@material-ui/icons/Refresh';
-import DescriptionIcon from '@material-ui/icons/Description';
+import { TextField, Grid, Switch, FormControlLabel } from '@material-ui/core';
+
+import Pdf from "react-to-pdf";
+
+// import {
+//     MuiPickersUtilsProvider,
+//     KeyboardTimePicker,
+//     KeyboardDatePicker
+// } from '@material-ui/pickers';
 
 import "../page/Main.css";
 import PhotoList from '../components/PhotoList';
-import Upload from '../userComponents/Upload';
-import ExportAsImage from './ExportAsImage';
+// import Upload from '../userComponents/Upload';
+// import ExportAsImage from './ExportAsImage';
+import CtrlForm from '../components/CtrlForm';
+
+// import { margin } from '@mui/system';
+// import { Prev } from 'react-bootstrap/esm/PageItem';
+
+//import filesData from '../file-data.json';
 
 function Main() {
 
     const [filesDatas, setFilesDatas] = useState([]);
-    const [resetKey, setResetKey] = useState(0);
     const printStatus = useRef(false);
-    const [check, setCheck] = useState(false)
+    const exportRef = useRef();
     const [checkListInfo, setCheckListInfo] = useState({
         name: "大潭電廠7、8、9號機抽水機房暨進出水暗渠等新建工程",
         date: "2022-06-01",
         RtName: "OOO",
         BesName: "OOO"
     });
-
-    const exportRef = useRef();
 
     const addInfo = (id, info) => {
         console.log(id);
@@ -84,23 +94,23 @@ function Main() {
         });
     }
 
-    const resetFile = () => {
-        setFilesDatas([]);
-        setResetKey(0);
-        setCheck(false);
-        printStatus.current = false;
-    }
+    // const resetFile = () => {
+    //     setFilesDatas([]);
+    //     // setResetKey(0);
+    //     // setCheck(false);
+    //     printStatus.current = false;
+    // }
 
-    const onPrint = () => {
-        !check ? alert("請案鎖定按鈕") : alert("準備輸出")
-        if (!check) return;
-        ExportAsImage(exportRef.current, 'test');
-    }
+    // const onPrint = () => {
+    //     !check ? alert("請案鎖定按鈕") : alert("準備輸出")
+    //     if (!check) return;
+    //     ExportAsImage(exportRef.current, 'test');
+    // }
 
     return (
         <>
             <CssBaseline />
-            <Container fixed>
+            {/* <Container fixed>
                 <div style={{ margin: '20px' }}>
                     <h1 style={{ textAlign: 'center' }}>監造抽查照片整理系統</h1>
                 </div>
@@ -117,7 +127,7 @@ function Main() {
                     </Upload>
                     <Button
                         onClick={resetFile}
-                        startIcon={<RefreshIcon />}
+                        startIcon={<BackupIcon />}
                         color="primary"
                         variant="outlined"
                     >
@@ -180,23 +190,28 @@ function Main() {
                             size="small"
                         />}
                         labelPlacement="top"
+
+                        //value="top"
                         label="鎖定"
                     />
                     <Button
                         onClick={onPrint}
                         color="primary"
                         variant="outlined"
-                        startIcon={<DescriptionIcon />}
                     >
-                        輸出PDF
+                        輸出報告
                     </Button>
                 </Grid>
-            </Container>
+            </Container> */}
+            <CtrlForm
+                handleOnChange={handleOnChange}
+                setCheckListInfo={setCheckListInfo}
+            />
             <Container fixed style={{ marginTop: '20px' }}>
                 <div ref={exportRef} id="demo" className="app">
                     <h2 style={{ textAlign: 'center', marginTop: '30px' }}>{checkListInfo.name}</h2>
                     <h2 style={{ textAlign: 'center' }}>施工抽查照片({checkListInfo.date})</h2>
-                    <h5 style={{ textAlign: 'right', marginBottom: '40px' }}>睿泰:{checkListInfo.RtName}、BES:{checkListInfo.BesName}</h5>
+                    <h5 style={{ textAlign: 'right' }}>睿泰:{checkListInfo.RtName}、BES:{checkListInfo.BesName}</h5>
                     <PhotoList datas={filesDatas} addInfo={addInfo} deleteItem={deleteItem} printStatus={printStatus} />
                 </div>
             </Container>
