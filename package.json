@@ -1,5 +1,6 @@
 {
   "name": "photos",
+  "homepage": "https://dido0814.github.io/rtcv03_photos",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
