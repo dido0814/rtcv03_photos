@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Grid } from '@material-ui/core';
+import { Grid } from '@mui/material';
 
 import Item from './Item';
 
@@ -11,7 +11,6 @@ const PhotoList = ({ datas, printStatus, deleteItem = f => f, addInfo = f => f }
 
     return (
         <>
-            {/* justifyContent="center" */}
             <Grid container>
                 {
                     datas.map((item, i) => {
@@ -25,7 +24,6 @@ const PhotoList = ({ datas, printStatus, deleteItem = f => f, addInfo = f => f }
             </Grid>
         </>
     );
-
 }
 
 PhotoList.propTypes = {

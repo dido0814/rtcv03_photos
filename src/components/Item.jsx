@@ -1,18 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import PropTypes from 'prop-types';
 
-import Button from '@material-ui/core/Button';
-import DeleteIcon from '@material-ui/icons/Delete';
-import { TextField, Switch, IconButton } from "@material-ui/core";
+import { TextField, Switch, IconButton } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import Card from "../userComponents/Card";
 import Meta from "../userComponents/Meta";
-// import FormControl from "../userComponents/FormControl";
-// import TextField from "../userComponents/TextField";
 
 const divStyle = {
-    // background: 'red',
-    // height: '25px'
     marginTop: '2px'
 };
 
@@ -33,11 +28,6 @@ const Item = ({ data, printStatus, deleteItem = f => f, addInfo = f => f }) => {
             }
             addInfo(id, info)
             setCheck(true);
-            // setLocation(location);
-            // setItem(item);
-            // setDescription("");
-            // console.log(`id: ${id}`)
-            // console.log(`info: ${info.item} ${info.loction} ${info.description}`)
         }
         if (check) setCheck(false);
     }

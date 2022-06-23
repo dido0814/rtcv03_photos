@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { CssBaseline, Container, Grid } from '@mui/material';
+import { Button, TextField, Switch, FormControlLabel } from '@mui/material';
 
-import { CssBaseline, Container, Grid } from '@material-ui/core';
-import { Button, TextField, Switch, FormControlLabel } from '@material-ui/core';
-
-import BackupIcon from '@material-ui/icons/Backup';
-import RefreshIcon from '@material-ui/icons/Refresh';
-import DescriptionIcon from '@material-ui/icons/Description';
+import BackupIcon from '@mui/icons-material/Backup';
+import RefreshIcon from '@mui/icons-material/Refresh';
+import DescriptionIcon from '@mui/icons-material/Description';
 
 import "../page/Main.css";
 import PhotoList from '../components/PhotoList';
