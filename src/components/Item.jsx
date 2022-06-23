@@ -8,7 +8,7 @@ import Card from "../userComponents/Card";
 import Meta from "../userComponents/Meta";
 
 const divStyle = {
-    marginTop: '2px'
+    marginTop: '15px'
 };
 
 const Item = ({ data, printStatus, deleteItem = f => f, addInfo = f => f }) => {
@@ -41,19 +41,20 @@ const Item = ({ data, printStatus, deleteItem = f => f, addInfo = f => f }) => {
                 footer={
                     printStatus.current ? <div></div> :
                         <div id="itemFooter" >
-                            <Switch
+                            {/* <Switch
                                 checked={check}
                                 onChange={() => onAddInfo(data.info.id)}
                                 name="checkedA"
                                 color="primary"
                             />
-                            {check ? <label>鎖定</label> : <label>未輸入</label>}
+                            {check ? <label>鎖定</label> : <label>未輸入</label>} */}
                             <IconButton
                                 onClick={() => deleteItem(data.info.id)}
                                 variant="outlined"
                                 color="secondary"
                             >
                                 <DeleteIcon />
+                                刪除項目
                             </IconButton >
                         </div>
                 }
@@ -67,6 +68,7 @@ const Item = ({ data, printStatus, deleteItem = f => f, addInfo = f => f }) => {
                                     value={location}
                                     onChange={event => setLocation(event.target.value)}
                                     disabled={check}
+                                    variant="standard"
                                 />
                             </div>
                             <div style={divStyle}>
@@ -75,6 +77,9 @@ const Item = ({ data, printStatus, deleteItem = f => f, addInfo = f => f }) => {
                                     value={item}
                                     onChange={event => setItem(event.target.value)}
                                     disabled={check}
+                                    variant="standard"
+                                    // color="warning"
+                                    // focused
                                 />
                             </div>
                             <div style={divStyle}>
@@ -83,6 +88,7 @@ const Item = ({ data, printStatus, deleteItem = f => f, addInfo = f => f }) => {
                                     value={description}
                                     onChange={event => setDescription(event.target.value)}
                                     disabled={check}
+                                    variant="standard"
                                 />
                             </div>
                         </form>}

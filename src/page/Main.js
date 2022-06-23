@@ -13,13 +13,15 @@ import ExportAsImage from './ExportAsImage';
 
 function Main() {
 
+    const today = new Date().toLocaleDateString();
+    console.log(today);
     const [filesDatas, setFilesDatas] = useState([]);
     const [resetKey, setResetKey] = useState(0);
     const printStatus = useRef(false);
     const [check, setCheck] = useState(false)
     const [checkListInfo, setCheckListInfo] = useState({
         name: "大潭電廠7、8、9號機抽水機房暨進出水暗渠等新建工程",
-        date: "2022-06-01",
+        date: today,
         RtName: "OOO",
         BesName: "OOO"
     });
@@ -124,7 +126,7 @@ function Main() {
                     </Button>
                     <TextField
                         type="date"
-                        defaultValue="2022-06-01"
+                        defaultValue="111-06-01"
                         label="抽查日期："
                         InputLabelProps={{
                             shrink: true,
