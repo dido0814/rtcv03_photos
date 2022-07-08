@@ -4,25 +4,28 @@ import PropTypes from 'prop-types';
 import { Grid } from '@mui/material';
 
 import Item from './Item';
+import ItemTable from '../components/ItemTable';
 
 const PhotoList = ({ datas, printStatus, deleteItem = f => f, addInfo = f => f }) => {
 
     if (datas.length === 0) return (<p>尚未載入照片</p>);
 
     return (
-        <>
-            <Grid container>
-                {
-                    datas.map((item, i) => {
-                        return (
-                            <Grid item key={i} xs={6} spacing={1}>
-                                <Item key={i} data={item} deleteItem={deleteItem} addInfo={addInfo} printStatus={printStatus} />
-                            </Grid>
-                        );
-                    })
-                }
-            </Grid>
-        </>
+        <Grid item container spacing={0.3}>
+            {datas.map((card, i) => {
+                return (
+                    <Grid item xs={6} key={i}>
+                        <ItemTable
+                            key={i}
+                            data={card}
+                            deleteItem={deleteItem}
+                            addInfo={addInfo}
+                            printStatus={printStatus}
+                        />
+                    </Grid>
+                );
+            })}
+        </Grid>
     );
 }
 

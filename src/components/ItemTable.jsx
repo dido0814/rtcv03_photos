@@ -2,15 +2,17 @@ import React, { useState } from "react";
 import PropTypes from 'prop-types';
 import styled from "styled-components";
 
-import { TextField, Switch, IconButton } from "@mui/material";
+import { TextField, Switch, IconButton, Grid } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
+// import Card from '@mui/material/Card';
+// import CardActions from '@mui/material/CardActions';
+// import CardContent from '@mui/material/CardContent';
+// import CardMedia from '@mui/material/CardMedia';
 
 import Card from "../userComponents/Card";
 import Meta from "../userComponents/Meta";
 
-// const divStyle = {
-//     marginTop: '15px'
-// };
+
 
 const ItemForm = styled.form`
     margin-top: 10px;
@@ -48,8 +50,8 @@ const Item = ({ data, printStatus, deleteItem = f => f, addInfo = f => f }) => {
         <div>
             <Card
                 style={{ margin: 10 }}
-                cover={<img src={data.fileSrc} alt="" style={{ margin: 10 }} />}
-                variant="horizontal"
+                cover={<img src={data.fileSrc} alt="" style={{ margin: 5 }} />}
+                variant="vertical"
                 footer={
                     printStatus.current ? <div></div> :
                         <div id="itemFooter" >
@@ -73,48 +75,49 @@ const Item = ({ data, printStatus, deleteItem = f => f, addInfo = f => f }) => {
             >
                 <Meta
                     description={
-                        <ItemForm>
-                            <div>
+                        <Grid item container spacing={1.5}>
+                            <Grid item xs={4}>
                                 <TextField
                                     label="抽查位置："
                                     value={location}
                                     onChange={event => setLocation(event.target.value)}
                                     disabled={check}
                                     variant="standard"
-                                    style={{ width: '16ch' }}
+                                    // style={{ width: '16ch' }}
+                                    InputLabelProps={{ shrink: true }}
+                                    fullWidth
                                 />
-                            </div>
-                            <div>
+                            </Grid>
+                            <Grid item xs={8}>
                                 <TextField
                                     label="抽查項目："
                                     value={item}
                                     onChange={event => setItem(event.target.value)}
                                     disabled={check}
                                     variant="standard"
-                                    multiline
-                                    rows={2}
-                                    style={{ width: '16ch' }}
-                                // InputLabelProps={{ shrink: true }}
+                                    // style={{ width: '16ch' }}
+                                    InputLabelProps={{ shrink: true }}
+                                    fullWidth
                                 />
-                            </div>
-                            <div>
+                            </Grid>
+
+                            <Grid item xs={12}>
                                 <TextField
                                     label="抽查說明："
                                     value={description}
                                     onChange={event => setDescription(event.target.value)}
                                     disabled={check}
                                     variant="standard"
-                                    multiline
-                                    rows={2}
-                                    style={{ width: '16ch' }}
-                                // InputLabelProps={{ shrink: true }}
+                                    InputLabelProps={{ shrink: true }}
+                                    fullWidth
                                 />
-                            </div>
-                        </ItemForm>}
+                            </Grid>
+                        </Grid>
+                    }
                 >
                 </Meta>
             </Card >
-        </div >
+        </div>
     );
 };
 

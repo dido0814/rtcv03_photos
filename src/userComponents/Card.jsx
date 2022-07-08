@@ -32,10 +32,15 @@ const StyledCard = styled.div`
 
 const Cover = styled.div`
   overflow: hidden;
-  width: 450px;
+  height:310px;
+  
   img {
-    width: 100%;
+    width: 97%;
+
+    // height:98%;
     display: block;
+    // object-fit: fill;
+    // margin:auto
   }
 `;
 
